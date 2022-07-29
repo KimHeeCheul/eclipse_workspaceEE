@@ -202,14 +202,14 @@ public class CartDao {
 	    while(rs.next()) {
 	    	CartItem cartItem=
 	    			new CartItem(rs.getInt("cart_no"),
-	    						rs.getInt("cart_qty"),
-	    						new Product(rs.getInt("p_no"), 
-	    									rs.getString("p_name"),
-	    									rs.getInt("p_price"), 
-	    									rs.getString("p_image"), 
-	    									rs.getString("p_desc"),
-	    									rs.getInt("p_click_count")),
-	    						sUserId);
+	    					 	 rs.getInt("cart_qty"),
+	    						 new Product(rs.getInt("p_no"), 
+	    									 rs.getString("p_name"),
+	    									 rs.getInt("p_price"), 
+	    								 	 rs.getString("p_image"), 
+	    									 rs.getString("p_desc"),
+	    									 rs.getInt("p_click_count")),
+	    						 sUserId);
 	    	cartItemList.add(cartItem);
 	    }
 	    pstmt.close();
