@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+	 함수정의
+	   - 윈도객체에소속된 함수가된다.
+	 */
+	function head_function(){
+		window.document.write("head_function()<br>");
+	}
+	var name='global 이순신';
+	var msg = 'global 저는 아직도 3척이나 있습니다';
+	
+	function hello1() {
+		/*
+		local 변수는 function block에 의해서만 범위(scope)가 설정된다
+		*/
+		var name = 'local GUEST1';
+		var msg = 'local 3척 밖에 없어요!!!';
+		document.write(name + " 님" + msg + "[hello1()]<br>");
+		document.write(window.name + " 님" + window.msg + "[hello1()]<br>"); //전역변수 접근
+		return;
+	}
+	/***************function a********************/
+	function hello2(msg){
+		/*
+		method parameter(메쏘드 파라메타)변수선언시에 var키워드를 사용하지 않는다
+		*/
+		var name = "local GUEST2";
+		document.write(name+" 님 "+msg+"[hello2(msg)]<br>");
+	}
+	
+	function hello3(name,msg) {
+		document.write(name+" 님 "+msg+"[hello3(name,msg)]<br>")
+	}
+	
+	function hello4(name,msg,count) {
+		for(var i=0;i<count;i++){
+			document.write(name+"님"+msg+"[hello4(name,msg,count)]<br>");
+		}
+		document.write("for block 밖에서 i="+i+"<br>");
+	}
+	/*****************function return**********************/
+	function add(a,b){
+		var r=a+b;
+		return r;
+	}
+	function sub(a,b){
+		return a-b;
+	}
+	function mul(a,b){
+		return a*b;
+	} 
+	function div(a,b){
+		return a/b;	//나누기
+	}
+	
+	function div(a,b){
+		return a%b;	//나머지 연산
+	}
+	
+	//나중에 정의되는것을 우선으로 보여준다 (기존에 있는것을 덮어버린다)
+	
+	function alert(msg){
+		document.write("<i>내가 만든 경고 함수(window.alert(msg)를 대체해버림)"+msg+"</i><br>")
+	}
+	
+</script>
+
+</head>
+<body>
+	<h1>자바스크립트함수</h1>
+	<hr>
+	<div>함수기반언어이다</div>
+	<script type="text/javascript">
+		//console.log를 붙인 후 브라우져에서 F12를 누르고 F5(실행)를 눌렀을때 콘솔에 나온다
+		//함수호출
+		head_function();
+		window.head_function();
+		window.hello1();
+		/*
+		Uncaught ReferenceError: body_end_function is not defined
+		정의가 되지 않았기 때문에 에러가 나온다
+		*/
+		//body_end_function();
+		hello2("뭐하시는거에요!!!");
+		hello2("안녕하세요 이사온 사람입니다");
+		hello3("사람1","안녕하세요");
+		hello3("사람2","안녕하세요");
+		hello4("선생님","이게 왜 안될까요",3);
+		window.hello4("선생님","이게 또 왜이럴까요",4);
+		
+		var result = add(1,2);
+		document.write("add:"+result+"<br>");
+		var result = sub(1,2);
+		document.write("sub:"+result+"<br>");
+		var result = mul(1,2);
+		document.write("uml:"+result+"<br>");
+		var result = div(1,2);
+		document.write("div:"+result+"<br>");
+		
+		window.alert("메세지");
+		
+	</script>
+
+	<script type="text/javascript">
+		function body_end_function(){
+			document.write("body function()<br>");
+		}
+		body_end_function();
+		
+		
+	</script>
+</body>
+</html>

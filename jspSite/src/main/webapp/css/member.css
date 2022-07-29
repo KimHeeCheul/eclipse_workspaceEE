@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/*
+	selector
+		1. tag selector
+			- select로 기술된 모든 태그에 css 속성이 적용된다
+*/
+
+/* 사이트 모든 페이지 공통 CSS(common.css)
+body {
+	background-color: aliceblue;
+	color: #999999;
+}
+
+h1, h2, h3 {
+	color: maroon;
+}
+*/
+form {
+	color: navy;
+	border: 1px dotted black;
+	width: 600px;
+	margin: 0 auto;
+}
+
+/*
+		2. class selector
+			- tag의 class 속성과 일치하는 tag에 적용
+			- selector 이름 앞에 .을 기술
+*/
+.txtfld {
+	color: blue;
+	border: 1px solid blue;
+}
+
+.passfld {
+	color: red;
+	border: 1px double red;
+}
+
+/*
+		3. id selector
+			- tag의 id속성과 일치하는 태그에 적용
+			- selector 이름 앞에 #을 기술
+*/
+#jointbl {
+	width: 500px;
+	background-color: mistyrose;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+#first-tr {
+	color: teal;
+	background-color: gray;
+}
