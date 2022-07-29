@@ -32,12 +32,26 @@ public class CartDao {
 		basicDataSource.setPassword(properties.getProperty("password"));
 		dataSource = basicDataSource;
 	}
-
-	
+	/*
+	 * cart에 있는 제품 count 
+	 */
+	public int cartProductCount(CartItem cartItem) throws Exception {
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(CartSQL.CART_SELECT_PRODUCT_COUNT_BY_USERID_P_NO);
+		pstmt.setString(1, cartItem.getUserid());
+		pstmt.setInt(2, cartItem.getProduct().getP_no());
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		int product_count = rs.getInt("product_count");
+		pstmt.close();
+		con.close();
+		return product_count;
+	}
 	
 	
 	/*
 	 * cart제품 존재여부
+	 * boolean은 사용하지 않는것이 좋다(삭제시 서비스 에러..)
 	 */
 	public boolean  isProductExist(String sUserId,int p_no) throws Exception{
 		boolean isExist=false;
@@ -68,7 +82,21 @@ public class CartDao {
 		return isExist;
 	}
 	
+	/*
+	 * cart insert(CartItem)
+	 */
 	
+	public int add(CartItem newCartItem) throws Exception {
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(CartSQL.CART_INSERT);
+		pstmt.setInt(1, newCartItem.getCart_qty());
+		pstmt.setInt(2, newCartItem.getProduct().getP_no());
+		pstmt.setString(3, newCartItem.getUserid());
+		int rowCount = pstmt.executeUpdate();
+		pstmt.close();
+		con.close();
+		return rowCount;
+	}
 	/*
 	 * cart insert
 	 */
@@ -92,8 +120,26 @@ public class CartDao {
 		return insertRowCount;
 		
 	}
+	
 	/*
-	 * cart add update
+	 * cart 추가시 수량 update(아래것과 같은것 방식이 다름)
+	 */
+	
+	public int updateByProductNoAndUserId(CartItem cartItem) throws Exception {
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(CartSQL.CART_UPDATE_BY_P_NO_USERID);
+		pstmt.setInt(1, cartItem.getCart_qty());
+		pstmt.setString(2, cartItem.getUserid());
+		pstmt.setInt(3, cartItem.getProduct().getP_no());
+		int rowCount = pstmt.executeUpdate();
+		pstmt.close();
+		con.close();
+		return rowCount;
+	}
+	
+	
+	/*
+	 * cart add update(추가시 업데이트)
 	 */
 	public int update(String sUserId,int p_no,int cart_qty) throws Exception{
 		String updateQuery="update cart set cart_qty=cart_qty + ? where userid=? and p_no=?";
@@ -115,7 +161,7 @@ public class CartDao {
 		return rowCount;
 	}
 	/*
-	 * cart update
+	 * cart update(증가시 업데이트)
 	 */
 	public int update(int cart_no,int cart_qty) throws Exception{
 		String updateQuery="update cart set cart_qty=? where cart_no=?";
@@ -166,6 +212,8 @@ public class CartDao {
 	    						sUserId);
 	    	cartItemList.add(cartItem);
 	    }
+	    pstmt.close();
+	    con.close();
 	    return cartItemList;
 	}
 	
