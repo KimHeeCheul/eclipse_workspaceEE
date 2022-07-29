@@ -21,7 +21,6 @@
 <ul>
 	<%
 	
-
 		if(sUserId==null){
 	%>
 	     	<li><a href="user_login_form.jsp">로그인</a></li>

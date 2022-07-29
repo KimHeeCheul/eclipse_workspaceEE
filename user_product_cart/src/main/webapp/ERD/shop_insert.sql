@@ -14,8 +14,19 @@ insert into product values(product_p_no_SEQ.nextval, '샤페이', 700000, 'shaip
 insert into product values(product_p_no_SEQ.nextval, '닥스훈트', 800000, 'dachshund.jpg','기타 상세 정보 등...', 0);
 insert into product values(product_p_no_SEQ.nextval, '사모예드', 800000, 'samoyed.jpg','기타 상세 정보 등...', 0);
 
+/**********************cart insert************************/
+-- 로그인한 guard1 님이 카트에 존재하지 않는 제품을 카트에 담기
+insert into cart(cart_no,cart_qty,P_no,userid) values(cart_cart_no_seq.nextval,2,1,'guard1');
+insert into cart(cart_no,cart_qty,P_no,userid) values(cart_cart_no_seq.nextval,2,3,'guard1');
+insert into cart(cart_no,cart_qty,P_no,userid) values(cart_cart_no_seq.nextval,2,7,'guard1');
+-- 로그인한 guard2 님이 카트에 존재하지 않는 제품을 카트에 담기
+insert into cart(cart_no,cart_qty,P_no,userid) values(cart_cart_no_seq.nextval,1,7,'guard2');
+insert into cart(cart_no,cart_qty,P_no,userid) values(cart_cart_no_seq.nextval,2,8,'guard2');
+
+
 
 /**********************cart insert************************/
+/*
 insert into cart(cart_no,userId,p_no,cart_qty) values (cart_cart_no_SEQ.nextval,'guard1',1,2);
 insert into cart(cart_no,userId,p_no,cart_qty) 
 values
@@ -32,8 +43,9 @@ values
 insert into cart(cart_no,userId,p_no,cart_qty) 
 values
 (cart_cart_no_SEQ.nextval,'guard2',3,1);
-
+*/
 /**********************orders insert************************/
+/*
 insert into orders(o_no,o_desc,o_date,o_price,userid) values (orders_o_no_SEQ.nextval,'비글외1종',sysdate-2,1050000,'guard1');
 insert into order_item(oi_no,oi_qty,o_no,p_no) values(order_item_oi_no_SEQ.nextval,1,orders_o_no_SEQ.currval,1);
 insert into order_item(oi_no,oi_qty,o_no,p_no) values(order_item_oi_no_SEQ.nextval,1,orders_o_no_SEQ.currval,2);
@@ -58,5 +70,5 @@ insert into order_item(oi_no,oi_qty,o_no,p_no) values(order_item_oi_no_SEQ.nextv
 
 commit;
 desc order_item;
-
+*/
 
