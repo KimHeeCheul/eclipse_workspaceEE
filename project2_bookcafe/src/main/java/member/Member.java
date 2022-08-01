@@ -12,7 +12,7 @@ EMAIL	VARCHAR2(100 BYTE)	Yes		7
 INTEREST	VARCHAR2(200 BYTE)	Yes		8	
  */
 
-public class member {
+public class Member {
 	private String userId;
 	private String password;
 	private String name;
@@ -22,7 +22,7 @@ public class member {
 	private String email;
 	private String interest;
 
-	public member(String userId, String password, String name, String phone, String birth, String address,
+	public Member(String userId, String password, String name, String phone, String birth, String address,
 			String email, String interest) {
 		super();
 		this.userId = userId;

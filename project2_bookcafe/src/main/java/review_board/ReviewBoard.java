@@ -2,21 +2,21 @@ package review_board;
 
 import java.sql.Date;
 
-import member.member;
+import member.Member;
 import product.product;
 
-public class review_board {
+public class ReviewBoard {
 	private int r_no;
 	private Date r_date;
 	private String r_title;
 	private String r_content;
 	private int r_count;
 	/*********** Member ************/
-	private member userId;
+	private Member userId;
 	/*********** product ************/
 	private product p_no;
 
-	public review_board(int r_no, Date r_date, String r_title, String r_content, int r_count, member userId,
+	public ReviewBoard(int r_no, Date r_date, String r_title, String r_content, int r_count, Member userId,
 			product p_no) {
 		super();
 		this.r_no = r_no;
@@ -68,11 +68,11 @@ public class review_board {
 		this.r_count = r_count;
 	}
 
-	public member getUserId() {
+	public Member getUserId() {
 		return userId;
 	}
 
-	public void setUserId(member userId) {
+	public void setUserId(Member userId) {
 		this.userId = userId;
 	}
 

@@ -1,6 +1,6 @@
 package member;
 
-public class memberSQL {
+public class MemberSQL {
 	public final static String MEMBER_INSERT=
 			"insert into member (userId,password,name,phone,birth,address,email,interest) values (?,?,?,?,?,?,?,?)";
 	public final static String MEMBER_UPDATE=
