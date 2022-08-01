@@ -12,6 +12,20 @@ public class CartService {
 	/*
 	 * 카트추가 or 수정
 	 */
+	public int addCart(CartItem cartItem)throws Exception {
+		int product_count = cartDao.cartProductCount(cartItem);
+		if(product_count==0) {
+			//insert
+			cartDao.add(cartItem);
+		}else if (product_count==1) {
+			//update
+			cartDao.updateByProductNoAndUserId(cartItem);
+		}
+		return 0;
+	}
+	/*
+	 * 카트추가 or 수정
+	 */
 	public int addCart(String sUserId,int p_no,int cart_qty)throws Exception {
 		if(cartDao.isProductExist(sUserId, p_no)) {
 			return cartDao.update(sUserId, p_no, cart_qty);

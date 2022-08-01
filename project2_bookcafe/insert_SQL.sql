@@ -1,0 +1,10 @@
+insert into member
+values ('kim','1111','김','010-1234-1234','221111-1111111','서울시 강동구','kim@naver.com','공예');
+insert into member
+values ('lee','2222','이','010-1234-1234','221111-1111111','서울시 강서구','lee@naver.com','등산');
+insert into member
+values ('park','3333','박','010-1234-1234','221111-1111111','서울시 강남구','park@naver.com','골프');
+insert into member
+values ('choi','4444','최','010-1234-1234','221111-1111111','서울시 강북구','choi@naver.com','낚시');
+insert into member
+values ('test1','5555','test','010-1234-1234','221111-1111111','경기도 시흥시','test@naver.com','음악감상');

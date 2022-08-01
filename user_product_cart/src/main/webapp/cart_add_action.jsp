@@ -1,3 +1,5 @@
+<%@page import="com.itwill.shop.product.Product"%>
+<%@page import="com.itwill.shop.cart.CartItem"%>
 <%@page import="com.itwill.shop.cart.CartService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,7 +16,13 @@
        	String cart_qtyStr=request.getParameter("cart_qty");
        	String p_noStr=request.getParameter("p_no");
        	CartService cartService=new CartService();
-       	cartService.addCart(sUserId,Integer.parseInt(p_noStr),Integer.parseInt(cart_qtyStr));
+       	CartItem cartItme = 
+       			new CartItem(0,
+       						 Integer.parseInt(cart_qtyStr),
+       						 new Product(Integer.parseInt(p_noStr),null,0,"","",0),
+       						 sUserId);
+       	cartService.addCart(cartItme);
+       	//cartService.addCart(sUserId,Integer.parseInt(p_noStr),Integer.parseInt(cart_qtyStr));
        	
        	response.sendRedirect("cart_view.jsp");
        	/*
