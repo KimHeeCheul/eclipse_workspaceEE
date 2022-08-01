@@ -2,7 +2,7 @@ package dao;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 
-public class cartDao {
+public class memberDao {
 	private DataSource dataSource;
 	
 }
