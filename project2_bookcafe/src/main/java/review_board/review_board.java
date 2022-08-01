@@ -1,6 +1,9 @@
-package dto;
+package review_board;
 
 import java.sql.Date;
+
+import member.member;
+import product.product;
 
 public class review_board {
 	private int r_no;

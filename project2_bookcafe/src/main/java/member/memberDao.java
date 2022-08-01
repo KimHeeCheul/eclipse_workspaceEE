@@ -1,7 +1,8 @@
-package dao;
+package member;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 
-public class review_boardDao {
+public class memberDao {
 	private DataSource dataSource;
+	
 }
