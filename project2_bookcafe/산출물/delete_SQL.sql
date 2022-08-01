@@ -1,13 +1,16 @@
 ----------delete----------
 delete from review_board
-where bc_id = 'test1';
+where userid = 'test1';
 
-delete from userinfo
-where bc_id = 'test1';
+delete from member
+where userid = 'test1';
 
 delete from userinfo;
 
 delete from review_board;
+
+delete from review_board
+where r_no=33;
 
 /*
 select count(*) review_count
