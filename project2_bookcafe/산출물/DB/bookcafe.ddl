@@ -1,20 +1,21 @@
+DROP TABLE review_board CASCADE CONSTRAINTS;
 DROP TABLE orderlist CASCADE CONSTRAINTS;
 DROP TABLE qna CASCADE CONSTRAINTS;
 DROP TABLE cart CASCADE CONSTRAINTS;
 DROP TABLE orders CASCADE CONSTRAINTS;
-DROP TABLE product CASCADE CONSTRAINTS;
+DROP TABLE productlist CASCADE CONSTRAINTS;
 DROP TABLE category CASCADE CONSTRAINTS;
 DROP TABLE userinfo CASCADE CONSTRAINTS;
 
 CREATE TABLE userinfo(
-		bc_id                         		VARCHAR2(30)		 NOT NULL,
-		bc_password                   		VARCHAR2(30)		 NOT NULL,
-		bc_name                       		VARCHAR2(30)		 NOT NULL,
-		bc_birth                      		NUMBER(20)		 NOT NULL,
-		bc_gender                     		VARCHAR2(1)		 NOT NULL,
-		bc_phone                      		VARCHAR2(20)		 NOT NULL,
+		bc_id                         		VARCHAR2(100)		 NOT NULL,
+		bc_password                   		VARCHAR2(100)		 NOT NULL,
+		bc_name                       		VARCHAR2(100)		 NOT NULL,
+		bc_phone                      		VARCHAR2(100)		 NOT NULL,
+		bc_birth                      		VARCHAR2(100)		 NOT NULL,
+		bc_address                    		VARCHAR2(100)		 NOT NULL,
 		bc_email                      		VARCHAR2(100)		 NOT NULL,
-		bc_address                    		VARCHAR2(1000)		 NOT NULL
+		bc_interest                   		VARCHAR2(100)		 NOT NULL
 );
 
 
@@ -30,7 +31,7 @@ CREATE SEQUENCE category_ca_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
 
 
-CREATE TABLE product(
+CREATE TABLE productlist(
 		p_no                          		NUMBER(10)		 NOT NULL,
 		p_bookname                    		VARCHAR2(500)		 NULL ,
 		p_image                       		VARCHAR2(100)		 NULL ,
@@ -40,9 +41,9 @@ CREATE TABLE product(
 		ca_no                         		NUMBER(10)		 NULL 
 );
 
-DROP SEQUENCE product_p_no_SEQ;
+DROP SEQUENCE productlist_p_no_SEQ;
 
-CREATE SEQUENCE product_p_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
+CREATE SEQUENCE productlist_p_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
 
 
@@ -59,6 +60,8 @@ CREATE TABLE orders(
 DROP SEQUENCE orders_o_no_SEQ;
 
 CREATE SEQUENCE orders_o_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
+
+
 
 
 CREATE TABLE cart(
@@ -90,7 +93,6 @@ CREATE SEQUENCE qna_q_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
 
 
 
-
 CREATE TABLE orderlist(
 		ol_no                         		NUMBER(10)		 NOT NULL,
 		ol_qty                        		NUMBER(10)		 NULL ,
@@ -99,23 +101,42 @@ CREATE TABLE orderlist(
 );
 
 
+CREATE TABLE review_board(
+		r_no                          		NUMBER(10)		 NULL ,
+		r_date                        		DATE		 NULL ,
+		r_title                       		VARCHAR2(200)		 NULL ,
+		r_content                     		VARCHAR2(1000)		 NULL ,
+		bc_id                         		VARCHAR2(30)		 NULL ,
+		p_no                          		NUMBER(10)		 NULL 
+);
+
+DROP SEQUENCE review_board_r_no_SEQ;
+
+CREATE SEQUENCE review_board_r_no_SEQ NOMAXVALUE NOCACHE NOORDER NOCYCLE;
+
+
+
 
 ALTER TABLE userinfo ADD CONSTRAINT IDX_userinfo_PK PRIMARY KEY (bc_id);
 
 ALTER TABLE category ADD CONSTRAINT IDX_category_PK PRIMARY KEY (ca_no);
 
-ALTER TABLE product ADD CONSTRAINT IDX_product_PK PRIMARY KEY (p_no);
-ALTER TABLE product ADD CONSTRAINT IDX_product_FK0 FOREIGN KEY (ca_no) REFERENCES cataegory (ca_no);
+ALTER TABLE productlist ADD CONSTRAINT IDX_productlist_PK PRIMARY KEY (p_no);
+ALTER TABLE productlist ADD CONSTRAINT IDX_productlist_FK0 FOREIGN KEY (ca_no) REFERENCES category (ca_no);
 
 ALTER TABLE orders ADD CONSTRAINT IDX_orders_PK PRIMARY KEY (o_no);
 ALTER TABLE orders ADD CONSTRAINT IDX_orders_FK0 FOREIGN KEY (bc_id) REFERENCES userinfo (bc_id);
 
 ALTER TABLE cart ADD CONSTRAINT IDX_cart_PK PRIMARY KEY (c_no);
-ALTER TABLE cart ADD CONSTRAINT IDX_cart_FK0 FOREIGN KEY (bc_id) REFERENCES userinfo (bc_id);
+ALTER TABLE cart ADD CONSTRAINT IDX_cart_FK0 FOREIGN KEY (bc_id) REFERENCES userinfo (bc_id) on delete cascade;
 
 ALTER TABLE qna ADD CONSTRAINT IDX_qna_PK PRIMARY KEY (q_no);
 ALTER TABLE qna ADD CONSTRAINT IDX_qna_FK0 FOREIGN KEY (bc_id) REFERENCES userinfo (bc_id);
 
 ALTER TABLE orderlist ADD CONSTRAINT IDX_orderlist_PK PRIMARY KEY (ol_no);
 ALTER TABLE orderlist ADD CONSTRAINT IDX_orderlist_FK1 FOREIGN KEY (o_no) REFERENCES orders (o_no);
+
+ALTER TABLE review_board ADD CONSTRAINT IDX_review_board_PK PRIMARY KEY (r_no);
+ALTER TABLE review_board ADD CONSTRAINT IDX_review_board_FK0 FOREIGN KEY (bc_id) REFERENCES userinfo (bc_id);
+ALTER TABLE review_board ADD CONSTRAINT IDX_review_board_FK1 FOREIGN KEY (p_no) REFERENCES productlist (p_no);
 
