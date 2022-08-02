@@ -21,10 +21,21 @@ update cart set cart_qty=3 where cart_no=1
 delete from cart where cart_no=1;
 --guard1님 카트아이템모두삭제
 delete from cart where userid='guard1';
-
-
---1. 멤버 한사람의 주문전체목록
+/*****************주문**********************/
+--로그인한 멤버 (guard1)님의 주문목록
 select * from orders where userid='guard1';
+
+--로그인한 멤버 (guard1)님의 주문(orders)목록(orderitem,product)
+select * from orders o
+    join order_item oi on o.o_no=oi.o_no
+    join product p on oi.p_no=p.p_no
+where o.userid='guard1';
+
+--로그인한 멤버 주문 한개 삭제(on delete cascade)
+delete from orders where o_no=1;
+
+--로그인한 멤버 주문 전체 삭제(on delete cascade)
+delete from orders where userid='guard1';
 
 --2. 주문한개(멤버 한사람의) 
 select * from orders where o_no=1;
@@ -34,13 +45,16 @@ select * from orders where o_no=1;
 select * from order_item where o_no = 1;
 
 --4. 주문한개의 주문상세,제품정보 여러개(주문상세,제품)
-select * from orders o join order_item oi on o.o_no=oi.o_no  join  product p on oi.p_no=p.p_no 
+select * from orders o
+    join order_item oi on o.o_no=oi.o_no  
+    join  product p on oi.p_no=p.p_no 
 where o.userid='guard1' and o.o_no = 1;
 
 --5. 주문한개삭제(주문1개삭제,주문상세삭제)
 --on delete cascade
 delete from order_item where o_no=1;
 delete from orders where o_no=1;
+
 --rollback;
 --6. 멤버한사람의 주문내역전체삭제
 ----on delete cascade

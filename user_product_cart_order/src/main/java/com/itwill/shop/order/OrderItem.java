@@ -13,8 +13,8 @@ public class OrderItem {
 	 */
 	private int oi_no;
 	private int oi_qty;
-	private int o_no;
-	//private int p_no;
+	private int o_no;	//FK
+	//private int p_no;	//FK
 	private Product product;
 	public OrderItem() {
 		// TODO Auto-generated constructor stub
@@ -54,7 +54,5 @@ public class OrderItem {
 	public String toString() {
 		return "OrderItem [oi_no=" + oi_no + ", oi_qty=" + oi_qty + ", o_no=" + o_no + ", product=" + product + "]";
 	}
-	
-	
 	
 }

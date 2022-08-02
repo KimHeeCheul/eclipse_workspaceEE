@@ -108,8 +108,8 @@
                         <constraint>
                           <height>-1</height>
                           <width>-1</width>
-                          <x>79</x>
-                          <y>359</y>
+                          <x>81</x>
+                          <y>387</y>
                         </constraint>
                         <sourceConnections>
                           <net.java.amateras.db.visual.model.ForeignKeyModel reference="../../.."/>
@@ -138,8 +138,8 @@
                               <constraint>
                                 <height>-1</height>
                                 <width>-1</width>
-                                <x>367</x>
-                                <y>369</y>
+                                <x>407</x>
+                                <y>404</y>
                               </constraint>
                               <sourceConnections>
                                 <net.java.amateras.db.visual.model.ForeignKeyModel reference="../../.."/>
@@ -155,7 +155,7 @@
                                   </listeners>
                                   <source class="net.java.amateras.db.visual.model.TableModel" reference="../../.."/>
                                   <target class="net.java.amateras.db.visual.model.TableModel" reference="../../../../../../../../../../../../../../.."/>
-                                  <foreignKeyName>jumun_detail_FK_2</foreignKeyName>
+                                  <foreignKeyName>order_item_FK_2</foreignKeyName>
                                   <references/>
                                 </net.java.amateras.db.visual.model.ForeignKeyModel>
                               </sourceConnections>
@@ -185,12 +185,7 @@
                                 <net.java.amateras.db.visual.model.ColumnModel>
                                   <columnName>oi_qty</columnName>
                                   <logicalName>oi_qty</logicalName>
-                                  <columnType class="net.java.amateras.db.dialect.ColumnType">
-                                    <name>NUMBER</name>
-                                    <logicalName>Numeric</logicalName>
-                                    <supportSize>true</supportSize>
-                                    <type>2</type>
-                                  </columnType>
+                                  <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                                   <size>10</size>
                                   <notNull>false</notNull>
                                   <primaryKey>false</primaryKey>
@@ -201,11 +196,11 @@
                                 <net.java.amateras.db.visual.model.ColumnModel>
                                   <columnName>o_no</columnName>
                                   <logicalName>o_no</logicalName>
-                                  <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+                                  <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                                   <size>10</size>
                                   <notNull>false</notNull>
                                   <primaryKey>false</primaryKey>
-                                  <description></description>
+                                  <description>주문번호</description>
                                   <autoIncrement>false</autoIncrement>
                                   <defaultValue></defaultValue>
                                 </net.java.amateras.db.visual.model.ColumnModel>
@@ -235,7 +230,7 @@
                               <sql></sql>
                             </source>
                             <target class="net.java.amateras.db.visual.model.TableModel" reference="../../.."/>
-                            <foreignKeyName>jumun_detail_FK_1</foreignKeyName>
+                            <foreignKeyName>order_item_FK_1</foreignKeyName>
                             <references/>
                           </net.java.amateras.db.visual.model.ForeignKeyModel>
                         </targetConnections>
@@ -248,16 +243,11 @@
                           <net.java.amateras.db.visual.model.ColumnModel>
                             <columnName>o_no</columnName>
                             <logicalName>o_no</logicalName>
-                            <columnType class="net.java.amateras.db.dialect.ColumnType">
-                              <name>NUMBER</name>
-                              <logicalName>Numeric</logicalName>
-                              <supportSize>true</supportSize>
-                              <type>2</type>
-                            </columnType>
+                            <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                             <size>10</size>
                             <notNull>false</notNull>
                             <primaryKey>true</primaryKey>
-                            <description></description>
+                            <description>주문번호</description>
                             <autoIncrement>true</autoIncrement>
                             <defaultValue></defaultValue>
                           </net.java.amateras.db.visual.model.ColumnModel>
@@ -273,7 +263,8 @@
                             <size>100</size>
                             <notNull>false</notNull>
                             <primaryKey>false</primaryKey>
-                            <description></description>
+                            <description>설명&#xd;
+ex)특정물건 외 주문 3건</description>
                             <autoIncrement>false</autoIncrement>
                             <defaultValue></defaultValue>
                           </net.java.amateras.db.visual.model.ColumnModel>
@@ -296,7 +287,7 @@
                           <net.java.amateras.db.visual.model.ColumnModel>
                             <columnName>o_price</columnName>
                             <logicalName>o_price</logicalName>
-                            <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+                            <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel/source/columns/net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                             <size>10</size>
                             <notNull>false</notNull>
                             <primaryKey>false</primaryKey>
@@ -330,7 +321,7 @@
                         <sql></sql>
                       </source>
                       <target class="net.java.amateras.db.visual.model.TableModel" reference="../../.."/>
-                      <foreignKeyName>jumun_FK_1</foreignKeyName>
+                      <foreignKeyName>orders_FK_1</foreignKeyName>
                       <references/>
                     </net.java.amateras.db.visual.model.ForeignKeyModel>
                   </targetConnections>
@@ -408,7 +399,12 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>cart_no</columnName>
                 <logicalName>cart_no</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../sourceConnections/net.java.amateras.db.visual.model.ForeignKeyModel/target/targetConnections/net.java.amateras.db.visual.model.ForeignKeyModel[2]/source/columns/net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>NUMBER</name>
+                  <logicalName>Numeric</logicalName>
+                  <supportSize>true</supportSize>
+                  <type>2</type>
+                </columnType>
                 <size>10</size>
                 <notNull>false</notNull>
                 <primaryKey>true</primaryKey>
