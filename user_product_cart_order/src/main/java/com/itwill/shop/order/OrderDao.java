@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -72,6 +73,60 @@ public class OrderDao {
 	
 	
 	/****************************************************************************/
+	
+	public List<Order> list_detail(String userId) throws Exception{
+		List<Order> orderList = new ArrayList<Order>();
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt1 = con.prepareStatement(OrderSQL.ORDER_O_NO_LIST);
+		PreparedStatement pstmt2 = con.prepareStatement(OrderSQL.ORDER_LIST_BY_USERID_O_NO);
+		pstmt1.setString(1, userId);
+		ResultSet rs1 = pstmt1.executeQuery();
+		while(rs1.next()) {// 같은 오더의 넘버를 찾고
+			int temp_o_no = rs1.getInt("o_no");
+			
+			pstmt2.clearParameters();
+			pstmt2.setString(1, userId);
+			pstmt2.setInt(2, temp_o_no);
+			ResultSet rs2 = pstmt2.executeQuery();
+			Order order = null;
+			if(rs2.next()) {
+				order = new Order(rs2.getInt("o_no"),
+										rs2.getString("o_desc"),
+										rs2.getDate("o_date"),
+										rs2.getInt("o_price"),
+										rs2.getString("userId"),
+										null);
+				List<OrderItem> OrderItemList = new ArrayList<OrderItem>();
+				do {//OrderItem(int oi_no, int oi_qty, int o_no, Product product)
+					OrderItemList.add(new OrderItem(rs2.getInt("oi_no"),
+													rs2.getInt("oi_qty"),
+													rs2.getInt("o_no"),
+		//Product(int p_no, String p_name, int p_price, String p_image, String p_desc, int p_click_count)
+													new Product(rs2.getInt("p_no"),
+																rs2.getString("p_name"),
+																rs2.getInt("p_price"),
+																rs2.getString("p_image"),
+																rs2.getString("p_desc"),
+																rs2.getInt("p_click_count"))));
+				}while(rs2.next()); //같은 넘버에 담긴 물품을 찾는다
+				order.setOrderItemList(OrderItemList);
+			}//end if
+			orderList.add(order);
+		}//end while
+		return orderList;
+	}// end method
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	 * 주문전체삭제(ON DELETE CASCADE)
 	 */

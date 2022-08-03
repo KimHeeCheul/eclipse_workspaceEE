@@ -31,6 +31,18 @@ select * from orders o
     join product p on oi.p_no=p.p_no
 where o.userid='guard1';
 
+--로그인한 멤버 (guard1)님의 주문번호
+select o_no from orders where userid='guard1';
+--로그인한 멤버 (guard1)님의 주문(orders)한개(orderitem,product)의 상세
+select * from orders o
+    join order_item oi on o.o_no=oi.o_no
+    join product p on oi.p_no=p.p_no
+where o.userid='guard1'
+and o.o_no=4;
+
+
+
+
 --로그인한 멤버 주문 한개 삭제(on delete cascade)
 delete from orders where o_no=1;
 
