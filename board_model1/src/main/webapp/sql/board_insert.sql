@@ -21,14 +21,15 @@ CREATE TABLE board
 
 --새글쓰기(최상위글)
 --새글쓰기
-insert into board(boardno,title,writer,cotent,groupno,step,depth) values(board_sequence.nextval,
-'게시판 타이틀'||board_sequence.currval,
-'김경호'||board_sequence.currval,
-'내용'||board_sequence.currval,
-board_sequence.currval,
-1,
-0
-);
+insert into board(boardno,title,writer,content,groupno,step,depth) 
+    values(board_sequence.nextval,
+           '게시판 타이틀'||board_sequence.currval,
+           '김경호'||board_sequence.currval,
+           '내용'||board_sequence.currval,
+           board_sequence.currval,
+           1,
+           0
+           );
 
 
 
@@ -46,7 +47,15 @@ set step = step +1
 where step > 1 
 and groupno =564;
 --insert 
- 
+insert into board(boardno,title,writer,content,groupno,step,depth) 
+    values(board_sequence.nextval,
+           '게시판 타이틀'||board_sequence.currval,
+           '김경호'||board_sequence.currval,
+           '내용'||board_sequence.currval,
+           564,
+           2,
+           1
+           );
  --1번step
 
 

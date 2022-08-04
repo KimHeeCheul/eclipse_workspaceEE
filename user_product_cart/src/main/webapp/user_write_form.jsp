@@ -143,9 +143,9 @@
 
 							<table border=0 cellpadding=0 cellspacing=1>
 								<tr>
-									<td align=center><input type="button" value="회원 가입"
-										onclick="userCreate();"> &nbsp; <input type="button"
-										value="목록" onClick="userList()"></td>
+									<td align=center>
+									<input type="button" value="회원 가입"onclick="userCreate();"> &nbsp; 
+									<input type="button" value="목록" onClick="userList()"></td>
 								</tr>
 							</table>
 

@@ -81,8 +81,8 @@
 		<br>
 		<div id="chk">
 			<form id="checkForm">
-				<input type="text" name="userId" id="userId" value="<%=userId%>"> <input
-					type="button" value="중복확인" onclick="idCheck()">
+				<input type="text" name="userId" id="userId" value="<%=userId%>"> 
+				<input type="button" value="중복확인" onclick="idCheck()">
 			</form>
 			<div id="msg"><%=msg %></div>
 
