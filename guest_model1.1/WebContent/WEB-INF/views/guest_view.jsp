@@ -4,20 +4,11 @@
     pageEncoding="UTF-8"%>
 <%
 /*
- * 0.요청객체encoding설정
- * 1.파라메타받기
- * 2.GuestService객체생성
- * 3.GuestService객체 selectByNo() 메쏘드호출
- * 4.Guest  출력
+ * 5.Guest 출력
  */
- //request.setCharacterEncoding("UTF-8");
- String guest_noStr=request.getParameter("guest_no");
- if(guest_noStr==null ||guest_noStr.equals("")){
-	 response.sendRedirect("guest_main.do");
-	 return;
- }
- GuestService guestService=new GuestService();
- Guest guest=guestService.selectByNo(Integer.parseInt(guest_noStr));
+ Guest guest = (Guest)request.getAttribute("guest");
+
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
