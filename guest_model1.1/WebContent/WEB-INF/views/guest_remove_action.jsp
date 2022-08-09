@@ -12,11 +12,11 @@
 	4.guest_list.jsp로 redirection
 	*/
 	if(request.getMethod().equalsIgnoreCase("GET")){
-		response.sendRedirect("guest_main.jsp");
+		response.sendRedirect("guest_main.do");
 		return;	
 	}
 	String guest_noStr =request.getParameter("guest_no");
 	GuestService guestService=new GuestService();
 	int rowCount=guestService.deleteGuest(Integer.parseInt(guest_noStr));
-	response.sendRedirect("guest_list.jsp");
+	response.sendRedirect("guest_list.do");
 %>

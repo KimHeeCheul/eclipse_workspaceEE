@@ -14,7 +14,7 @@
 		4.guest_view.jsp로 redirection
 	*/
 	if(request.getMethod().equalsIgnoreCase("GET")){
-		response.sendRedirect("guest_main.jsp");
+		response.sendRedirect("guest_main.do");
 		return;
 	}
 	String guest_noStr=request.getParameter("guest_no");
@@ -28,5 +28,5 @@
 							guest_title,guest_content);
 	GuestService guestService=new GuestService();
 	int rowCount=guestService.updateGuest(guest);
-	response.sendRedirect("guest_view.jsp?guest_no="+guest_noStr);
+	response.sendRedirect("guest_view.do?guest_no="+guest_noStr);
 %>	

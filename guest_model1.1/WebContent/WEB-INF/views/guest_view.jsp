@@ -13,7 +13,7 @@
  //request.setCharacterEncoding("UTF-8");
  String guest_noStr=request.getParameter("guest_no");
  if(guest_noStr==null ||guest_noStr.equals("")){
-	 response.sendRedirect("guest_main.jsp");
+	 response.sendRedirect("guest_main.do");
 	 return;
  }
  GuestService guestService=new GuestService();

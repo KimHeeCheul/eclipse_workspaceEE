@@ -13,7 +13,7 @@ GET방식이면 guest_main.jsp redirection
  	4.Guest 데이타를 form의 input element의  value  속성에 출력
 */
 	if(request.getMethod().equalsIgnoreCase("GET")){
-		response.sendRedirect("guest_main.jsp");
+		response.sendRedirect("guest_main.do");
 		return;	
 	}
 	String guest_noStr=request.getParameter("guest_no");
