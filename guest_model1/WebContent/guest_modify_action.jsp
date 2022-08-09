@@ -34,7 +34,7 @@ Guest guest = new Guest(Integer.parseInt(guest_noStr),guest_name,null,guest_emai
 //서비스 객체생성
 GuestService guestService = new GuestService();
 //메소드 호출
-guestService.updateGuest(guest);
+int rowCount=guestService.updateGuest(guest);
 //리다이렉션
 response.sendRedirect("guest_view.jsp?guest_no="+guest_noStr);
 %>

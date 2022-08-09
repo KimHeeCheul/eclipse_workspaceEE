@@ -15,7 +15,7 @@ GET방식이면 guest_main.jsp redirection
 */
 //방향 재지정
 if(request.getMethod().equalsIgnoreCase("GET")){	
-	response.sendRedirect("guest_list.jsp");
+	response.sendRedirect("guest_main.jsp");
 	return;
 }
 
@@ -33,7 +33,7 @@ if(guest_no==null||guest_no==""){
 GuestService guestService = new GuestService();
 
 //메소드 호출
-guestService.deleteGuest(Integer.parseInt(guest_no));
+int rowCount=guestService.deleteGuest(Integer.parseInt(guest_no));
 //리다이렉션
 response.sendRedirect("guest_list.jsp");
 

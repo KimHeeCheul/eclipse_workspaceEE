@@ -15,7 +15,7 @@ GET방식이면 guest_main.jsp redirection
 */
 //방향 재지정
 if(request.getMethod().equalsIgnoreCase("GET")){
-	response.sendRedirect("guest_list.jsp");
+	response.sendRedirect("guest_main.jsp");
 	return;
 }
 //설정
@@ -31,7 +31,7 @@ Guest guest = new Guest(0, guest_name, null, guest_email, guest_homepage, guest_
 //서비스 객체 생성
 GuestService guestService = new GuestService();
 //메소드 실행
-guestService.insertGuest(guest);
+int rowCount = guestService.insertGuest(guest);
 //리다이렉션
 response.sendRedirect("guest_list.jsp");
 %>
