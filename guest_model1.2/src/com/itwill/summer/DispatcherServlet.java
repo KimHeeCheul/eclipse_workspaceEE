@@ -120,22 +120,105 @@ public class DispatcherServlet extends HttpServlet {
 			/**************************************************/
 		} else if (command.equals("/guest_write_action.do")) {
 			/***************guest_write_action.do****************/
-			
+			try {
+				if(request.getMethod().equalsIgnoreCase("GET")){
+					/*
+					response.sendRedirect("guest_main.do");
+					return;
+					*/
+					forwardPath="redirect:guest_main.do";
+				}else {
+					Guest guest=new Guest(0,
+										  request.getParameter("guest_name"),
+										  null,
+										  request.getParameter("guest_email"),
+										  request.getParameter("guest_homepage"),
+										  request.getParameter("guest_title"),
+										  request.getParameter("guest_content")
+										  );
+					int rowCount=guestService.insertGuest(guest);
+					
+					//response.sendRedirect("guest_list.do");
+					forwardPath="redirect:guest_list.do";
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				forwardPath="forward:/WEB-INF/views/guest_error.jsp";
+			}
 			/****************************************************/
 		} else if (command.equals("/guest_modify_form.do")) {
 			/***************guest_modify_form.do****************/
-			
+			try {
+				if(request.getMethod().equalsIgnoreCase("GET")){
+					/*
+					response.sendRedirect("guest_main.do");
+					return;
+					*/
+					forwardPath="redirect:guest_main.do";
+				}else {
+					String guest_noStr=request.getParameter("guest_no");
+					
+					Guest guest=
+							guestService.selectByNo(Integer.parseInt(guest_noStr));
+					request.setAttribute("guest", guest);
+					forwardPath="forward:/WEB-INF/views/guest_modify_form.jsp";
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				forwardPath="forward:/WEB-INF/views/guest_error.jsp";
+			}
 			/***************************************************/
 		} else if (command.equals("/guest_modify_action.do")) {
 			/***************guest_modify_action.do****************/
-			
+			try {
+				if (request.getMethod().equalsIgnoreCase("GET")) {
+					/*
+					response.sendRedirect("guest_main.do");
+					return;
+					*/
+					forwardPath="redirect:guest_main.do";
+				}else {
+					String guest_noStr = request.getParameter("guest_no");
+					String guest_name = request.getParameter("guest_name");
+					String guest_email = request.getParameter("guest_email");
+					String guest_homepage = request.getParameter("guest_homepage");
+					String guest_title = request.getParameter("guest_title");
+					String guest_content = request.getParameter("guest_content");
+					Guest guest = new Guest(Integer.parseInt(guest_noStr), guest_name, null, guest_email, guest_homepage,
+							guest_title, guest_content);
+					int rowCount = guestService.updateGuest(guest);
+					//response.sendRedirect("guest_view.do?guest_no=" + guest_noStr);
+					//forwardPath = String.format("redirect:guest_view.do?guest_no=%s", guest_noStr);
+					forwardPath = "redirect:guest_view.do?guest_no="+guest_noStr;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				forwardPath = "forward:/WEB-INF/views/guest_error.jsp";
+			}
 			/*****************************************************/
 		} else if (command.equals("/guest_remove_action.do")) {
 			/***************guest_remove_action.do****************/
-			
-			/*****************************************************/
+			try {
+				if(request.getMethod().equalsIgnoreCase("GET")){
+					/*
+					response.sendRedirect("guest_main.do");
+					return;
+					*/	
+					forwardPath="redirect:guest_main.do";
+				}else {
+					String guest_noStr =request.getParameter("guest_no");
+					int rowCount=guestService.deleteGuest(Integer.parseInt(guest_noStr));
+					//response.sendRedirect("guest_list.do");
+					forwardPath="redirect:guest_list.do";
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+				forwardPath="forward:/WEB-INF/views/guest_error.jsp";
+			}
 		}else {
 			/****************** *.do *******************/
+			forwardPath="forward:/WEB-INF/views/guest_error.jsp";
 			/*******************************************/
 			
 		}
