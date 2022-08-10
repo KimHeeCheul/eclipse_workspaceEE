@@ -27,7 +27,7 @@
 							<td height="10"></td>
 						</tr>
 						<tr>
-							<td>에러메세지:<%--=exception.getMessage()--%></td>
+							<td>404 PAGE NOT FOUND:<%--=exception.getMessage()--%></td>
 						</tr>
 						<tr>
 							<td></td>
