@@ -1,0 +1,8 @@
+<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>com.itwill.summer.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
