@@ -1,11 +1,18 @@
 package com.itwill.summer;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.itwill.guest.Guest;
+import com.itwill.guest.GuestService;
 
 /*
  * 1. 클라이언트(웹브라우져)의 모든요청을 받는 서블릿작성(front Controller)
@@ -23,15 +30,138 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DispatcherServlet extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private GuestService guestService;
 	
+	public DispatcherServlet() {
+		System.out.println("DispatcherServlet()생성자!!!");
+		guestService = new GuestService();
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.processRequest(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.processRequest(request, response);
+	}
+
+	private void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		/********************
+		 * <<요청 url(command)>> /guest_main.do /guest_list.do /guest_view.do
+		 * /guest_write_form.do /guest_write_action.do /guest_modify_form.do
+		 * /guest_modify_action.do /guest_remove_action.do
+		 **********************/
+		// System.out.println("requestURI:"+request.getRequestURI());//<url-pattern>*.do</url-pattern>이런
+		// 맵핑을 했기 때문에 가능하다
+		/*
+		 * 1.DispatcherServlet이 클라이언트 요청URI를 사용해서 요청분석
+		 */
+		String requestURI = request.getRequestURI();
+		// System.out.println("requestURI:"+requestURI);
+		String contextPath = request.getContextPath();
+		// System.out.println("contextPath:"+contextPath);
+		String command = requestURI.substring(contextPath.length());
+		// System.out.println("command:"+command);
+
+		/*
+		 * 2.DispatcherServlet이 클라이언트 요청에따른 비지니스실행[Service객체사용] (비지니스실행후 forwardPath에
+		 * 이동할패쓰설정)
+		 */
+		String forwardPath = "";
+		if (command.equals("/guest_main.do")) {
+			/***************guest_main.do****************/
+			forwardPath="forward:/WEB-INF/views/guest_main.jsp";
+			/********************************************/
+		} else if (command.equals("/guest_list.do")) {
+			/***************guest_list.do****************/
+			try {
+				
+				/*
+				 0.요청객체encoding설정
+				 1.파라메타받기
+				 2.GuestService객체생성
+				 3.GuestService객체 selectAll() 메쏘드호출
+				 4.ArrayList<Guest> 리스트얻기
+				*/
+				 List<Guest> guestList=guestService.selectAll();
+				 request.setAttribute("guestList", guestList);
+				 forwardPath = "forward:/WEB-INF/views/guest_list.jsp";
+			}catch (Exception e) {
+				e.printStackTrace();
+				forwardPath="forward:/WEB-INF/views/guest_error.jsp";
+			}
+			/********************************************/
+		} else if (command.equals("/guest_view.do")) {
+			/***************guest_view.do****************/
+			try {
+				 String guest_noStr=request.getParameter("guest_no");
+				 if(guest_noStr==null ||guest_noStr.equals("")){
+					 /*
+					 response.sendRedirect("guest_main.do");
+					 return;
+					 */
+					 forwardPath="redirect:guest_main.do";
+				 }else {
+					 Guest guest=guestService.selectByNo(Integer.parseInt(guest_noStr));
+					 request.setAttribute("guest", guest);
+					 forwardPath="forward:/WEB-INF/views/guest_view.jsp";
+				 }
+			}catch (Exception e) {
+				e.printStackTrace();
+				forwardPath="forward:/WEB-INF/views/guest_error.jsp";
+			}
+			/********************************************/
+		} else if (command.equals("/guest_write_form.do")){
+			/***************guest_write_form.do****************/
+			forwardPath="forward:/WEB-INF/views/guest_write_form.jsp";
+			/**************************************************/
+		} else if (command.equals("/guest_write_action.do")) {
+			/***************guest_write_action.do****************/
+			
+			/****************************************************/
+		} else if (command.equals("/guest_modify_form.do")) {
+			/***************guest_modify_form.do****************/
+			
+			/***************************************************/
+		} else if (command.equals("/guest_modify_action.do")) {
+			/***************guest_modify_action.do****************/
+			
+			/*****************************************************/
+		} else if (command.equals("/guest_remove_action.do")) {
+			/***************guest_remove_action.do****************/
+			
+			/*****************************************************/
+		}else {
+			/****************** *.do *******************/
+			/*******************************************/
+			
+		}
+		/*
+		 * 3.DispatcherServlet이 forwardPath데이타를가지고 forward 혹은 redirect를한다
+		 */
+		/********************forward,redirect**************/
+		/*
+			forward --> forward:/WEB-INF/views/guest_xxx.jsp
+			redirect--> redirect:guest_xxx.do
+		 */
+		String[] pathArray=forwardPath.split(":");
+		String forwardOrRedirect = pathArray[0];
+		String path=pathArray[1];
+		if(forwardOrRedirect.equals("redirect")) {
+			response.sendRedirect(path);
+		}else if(forwardOrRedirect.equals("forward")){	
+			RequestDispatcher rd=
+					request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		}
+		/*************************************************/
+		
+		
+		
+		
 	}
 
 }
