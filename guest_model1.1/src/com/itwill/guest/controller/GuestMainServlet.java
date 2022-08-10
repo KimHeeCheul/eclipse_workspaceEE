@@ -19,18 +19,6 @@ public class GuestMainServlet extends HttpServlet {
 	String forwardPath = "";
 	forwardPath="forward:/WEB-INF/views/guest_main.jsp";
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/******************forward, redirect********************/
 	/*	대부분은 forward ↓이부분을 생략하지만 여기서는 붙여줄것
 		forword  --> forward:/WEB-INF/views/guest_xxx.jsp";
