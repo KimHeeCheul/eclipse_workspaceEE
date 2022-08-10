@@ -32,13 +32,16 @@ public class GuestViewServlet extends HttpServlet {
 		try {
 			String guest_noStr = request.getParameter("guest_no");
 			if (guest_noStr == null || guest_noStr.equals("")) {
-				response.sendRedirect("guest_main.do");
-				return;
+				//response.sendRedirect("guest_main.do");
+				//return;
+				//아래에 포워드를 넣어줄 경우 이 두가지는 기입하지 않고 forwardPath를 리다이렐트로 보낸다
+				forwardPath="redirect:guest_main.do";
+			}else {
+				GuestService guestService = new GuestService();
+				Guest guest = guestService.selectByNo(Integer.parseInt(guest_noStr));
+				request.setAttribute("guest", guest);
+				forwardPath = "forward:/WEB-INF/views/guest_view.jsp";
 			}
-			GuestService guestService = new GuestService();
-			Guest guest = guestService.selectByNo(Integer.parseInt(guest_noStr));
-			request.setAttribute("guest", guest);
-			forwardPath = "forward:/WEB-INF/views/guest_view.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 			forwardPath = "forward:/WEB-INF/views/guest_error.jsp";
