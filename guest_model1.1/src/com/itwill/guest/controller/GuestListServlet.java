@@ -39,15 +39,30 @@ public class GuestListServlet extends HttpServlet {
 			 */
 			List<Guest> guestList = guestService.selectAll();
 			request.setAttribute("guestList", guestList);
-			forwardPath = "/WEB-INF/views/guest_list.jsp";
+			forwardPath = "forward:/WEB-INF/views/guest_list.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();//정상적이지 않을 경우
-			forwardPath="/WEB-INF/views/guest_error.jsp";
+			forwardPath="forward:/WEB-INF/views/guest_error.jsp";
 			
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher(forwardPath);
-		rd.forward(request, response);
+		/******************forward, redirect********************/
+		
+		/*	대부분은 forward ↓이부분을 생략하지만 여기서는 붙여줄것
+			forword  --> forward:/WEB-INF/views/guest_xxx.jsp";
+			redirect --> redirect:guest_xxx.do
+		*/
+		// 이방식을 지키지 않으면 작동하지 않는다
+		String[] pathArray = forwardPath.split(":");
+		String forwardOrRedirect = pathArray[0];
+		String path = pathArray[1];
+		if(forwardOrRedirect.equals("redirect")) {
+				response.sendRedirect(path);
+			}else if(forwardOrRedirect.equals("forward")) {
+					RequestDispatcher rd = request.getRequestDispatcher(path);
+					rd.forward(request, response);//가장 공통적이지 않은 파일 나중에 외부에서 땡겨올 코드들
+			}
+		/****************모든 서블릿 하단에 다 들어간다*****************/
+		
 
 	}
 
