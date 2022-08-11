@@ -60,6 +60,6 @@
 		
 	}else if(result==1){
 		/*##################회원가입성공#################*/
-		response.sendRedirect("user_login_form.jsp");
+		response.sendRedirect("user_login_form.do");
 	}
 %>
