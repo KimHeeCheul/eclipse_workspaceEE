@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,44 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/guest.css">
-<script src="js/guest.js"></script>
-<script type="text/javascript">
-	function guestCreate() {
-		if (document.f.guest_name.value == "") {
-			alert("이름을 입력하십시요.");
-			document.f.guest_name.focus();
-			return false;
-		}
-		if (document.f.guest_email.value == "") {
-			alert("이메일을 입력하십시요.");
-			document.f.guest_email.focus();
-			return false;
-		}
-		if (document.f.guest_homepage.value == "") {
-			alert("홈페이지를 입력하십시요.");
-			document.f.guest_homepage.focus();
-			return false;
-		}
-
-		if (document.f.guest_title.value == "") {
-			alert("제목을 입력하십시요.");
-			document.f.guest_title.focus();
-			return false;
-		}
-		if (document.f.guest_content.value == "") {
-			alert("내용을 입력하십시요.");
-			document.f.guest_content.focus();
-			return false;
-		}
-		document.f.action = "guest_write_action.do";
-		document.f.method = 'POST';
-		document.f.submit();
-	}
-	function guestList() {
-		window.location.href = 'guest_list.do';
-	}
-</script>
-
+<script type="text/javascript" src="js/guest.js"></script>
 </head>
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0
 	marginwidth=0 marginheight=0>
@@ -53,14 +17,15 @@
 		<!-- header start -->
 		<div id="header">
 			<!-- include_common_top.jsp start-->
-			<jsp:include page="include_common_top.jsp" />
+			<jsp:include page="include_common_top.jsp"/>
+
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
 		<!-- navigation start-->
 		<div id="navigation">
 			<!-- include_common_left.jsp start-->
-			<jsp:include page="include_common_left.jsp" />
+			<jsp:include page="include_common_left.jsp"/>
 			<!-- include_common_left.jsp end-->
 		</div>
 		<!-- navigation end-->
@@ -118,7 +83,7 @@
 							<table width=590 border=0 cellpadding=0 cellspacing=0>
 								<tr>
 									<td align=center><input type="button" value="방명록쓰기"
-										onclick="guestCreate();"> &nbsp; <input type="button"
+										onClick="guestCreate();"> &nbsp; <input type="button"
 										value="방명록목록" onclick="guestList()"></td>
 								</tr>
 							</table>
@@ -132,7 +97,7 @@
 		<!-- footer start-->
 		<div id="footer">
 			<!-- include_common_bottom.jsp start-->
-			<jsp:include page="include_common_bottom.jsp" />
+			<jsp:include page="include_common_bottom.jsp"/>
 			<!-- include_common_bottom.jsp end-->
 		</div>
 	</div>
