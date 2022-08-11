@@ -15,16 +15,26 @@ import com.itwill.summer.Controller;
  * - handleRequest메쏘드가호출되면 DispatcherServlet객체에 forwardPath를 반환해줌
  */
 public class GuestListController implements Controller {
+	private GuestService guestService;
+
+	public GuestListController() {
+		guestService = new GuestService();
+	}
 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		String forwardPath = "";
-		
 		/*
-		 * 1. UserService객체를 사용해서 ArrayList<Guest> 얻기
-		 * 2. request scope객체에 담기[setAttribute()]
-		 * 3. forwardPath반환
+		 * 1. UserService객체를 사용해서 ArrayList<Guest> 얻기ㅡ 2. request scope객체에
+		 * 담기[setAttribute()]ㅡ 3. forwardPath반환ㅡ
 		 */
-		forwardPath = "forward:/WEB-INF/views/guest_list.jsp";
+		String forwardPath = "";
+		try {
+			ArrayList<Guest> guestList = guestService.selectAll();
+			request.setAttribute("guestList", guestList);
+			forwardPath = "forward:/WEB-INF/views/guest_list.jsp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			forwardPath = "forward:/WEB-INF/views/guest_list.jsp";
+		}
 
 		return forwardPath;
 	}

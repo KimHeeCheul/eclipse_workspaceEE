@@ -7,7 +7,7 @@
 	 /*
 	  5.ArrayList<Guest> 리스트 출력
 	  */
-	List<Guest> guestList=(List<Guest>)request.getAttribute("guestList");
+	List<Guest> guestList = (List<Guest>)request.getAttribute("guestList");
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

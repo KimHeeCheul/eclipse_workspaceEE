@@ -12,15 +12,31 @@ import com.itwill.summer.Controller;
  * - handleRequest메쏘드가호출되면 DispatcherServlet객체에 forwardPath를 반환해줌
  */
 public class GuestRemoveActionController implements Controller {
+	private GuestService guestService;
+
+	public GuestRemoveActionController() {
+		guestService = new GuestService();
+	}
+
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		String forwardPath = "";
 		/*
-		 * 1.GET방식이면 user_main.do로 redirection
-		 * 2.파라메타받기
-		 * 3.GuestService객체사용해서 삭제
-		 * 4.guest_list.do 로 redirection
+		 * 1.GET방식이면 user_main.do로 redirection ㅡ 2.파라메타받기 ㅡ 3.GuestService객체사용해서 삭제 ㅡ
+		 * 4.guest_list.do 로 redirection ㅡ
 		 */
-		forwardPath = "redirect:guest_list.do";
+		String forwardPath = "";
+		try {
+			if (request.getMethod().equalsIgnoreCase("GET")) {
+				forwardPath = "redirect:guest_main.do";
+			} else {
+				String guest_noStr = request.getParameter("no");
+				int deleteRowCount = guestService.deleteGuest(Integer.parseInt(guest_noStr));
+				forwardPath = "redirect:guest_list.do";
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			forwardPath = "forward:/WEB-INF/views/guest_error.jsp";
+		}
 		return forwardPath;
 	}
 }

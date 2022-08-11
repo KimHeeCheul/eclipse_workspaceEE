@@ -13,17 +13,43 @@ import com.itwill.summer.Controller;
  * - handleRequest메쏘드가호출되면 DispatcherServlet객체에 forwardPath를 반환해줌
  */
 public class GuestModifyActionController implements Controller {
+	private GuestService guestService;
+
+	public GuestModifyActionController() {
+		guestService = new GuestService();
+	}
 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		/*
-		 * 1.GET방식이면 user_main.do로 redirection
-		 * 2.파라메타받기
-		 * 3.GuestService객체사용해서 수정
+		 * 1.GET방식이면 user_main.do로 redirectionㅡ 2.파라메타받기 ㅡ 3.GuestService객체사용해서 수정ㅡ
 		 * 4.guest_view.do 로 redirection
 		 */
-		
 		String forwardPath = "";
-		forwardPath = "redirect:guest_view.do?guest_no=1";
+		try {
+			if (request.getMethod().equalsIgnoreCase("GET")) {
+				forwardPath = "redirect:guest_main.do";
+				return forwardPath;
+			} else {
+				/*
+				 * com.itwill.guest.Guest.Guest(int guest_no, String guest_name, String
+				 * guest_date, String guest_email, String guest_homepage, String guest_title,
+				 * String guest_content)
+				 */
+				String guest_noStr = request.getParameter("guest_no");
+				String guest_name = request.getParameter("guest_name");
+				String guest_email = request.getParameter("guest_email");
+				String guest_homepage = request.getParameter("guest_homepage");
+				String guest_title = request.getParameter("guest_title");
+				String guest_content = request.getParameter("guest_content");
+				Guest updateGuest = new Guest(Integer.parseInt(guest_noStr), guest_name, "", guest_email, guest_homepage, guest_title, guest_content);
+				int updateRowCount = guestService.updateGuest(updateGuest);
+				forwardPath = "redirect:guest_view.do?guest=no" + guest_noStr;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			forwardPath = "redirect:guest_view.do?guest_no=1";
+		}
 		return forwardPath;
+
 	}
 }

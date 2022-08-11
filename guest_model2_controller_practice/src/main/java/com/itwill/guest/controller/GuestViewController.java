@@ -1,5 +1,7 @@
 package com.itwill.guest.controller;
 
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,15 +15,33 @@ import com.itwill.summer.Controller;
  * - handleRequest메쏘드가호출되면 DispatcherServlet객체에 forwardPath를 반환해줌
  */
 public class GuestViewController implements Controller {
+	private GuestService guestService;
+
+	public GuestViewController() {
+		guestService = new GuestService();
+	}
 
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		String forwardPath = "";
-		/* 0. 파라메타받기
-		 * 1. UserService객체를 사용해서Guest객체 얻기
-		 * 2. request scope객체에 담기[setAttribute()]
-		 * 3. forwardPath반환
+		/*
+		 * 0. 파라메타받기 ㅡ 1. UserService객체를 사용해서Guest객체 얻기 ㅡ 2. request
+		 * scope객체에담기[setAttribute()] ㅡ 3. forwardPath반환 ㅡ
 		 */
-		forwardPath = "forward:/WEB-INF/views/guest_view.jsp";
+		String forwardPath = "";
+
+		try {
+			String guest_noStr = request.getParameter("no");
+			if (guest_noStr == null || guest_noStr.equals("")) {
+				forwardPath = "redirect:guest_main.do";
+			} else {
+				Guest guest = guestService.selectByNo(Integer.parseInt(guest_noStr));
+				request.setAttribute("guest", guest);
+				forwardPath = "forward:/WEB-INF/views/guest_view.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			forwardPath = "forward:/WEB-INF/views/guest_error.jsp";
+		}
+
 		return forwardPath;
 	}
 }
