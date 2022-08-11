@@ -14,7 +14,7 @@
 	    5-2. 가입성공이면   user_login_form.jsp 로 redierction
 	*/
 	if(request.getMethod().equalsIgnoreCase("GET")){
-		response.sendRedirect("user_main.jsp");
+		response.sendRedirect("user_main.do");
 		return;
 	}
 	//request.setCharacterEncoding("UTF-8");
