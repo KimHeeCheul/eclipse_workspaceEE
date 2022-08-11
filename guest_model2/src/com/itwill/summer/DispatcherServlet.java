@@ -1,6 +1,13 @@
 package com.itwill.summer;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +29,7 @@ import com.itwill.guest.controller.GuestWriteFormController;
     <servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>com.itwill.summer.DispatcherServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
@@ -29,6 +37,104 @@ import com.itwill.guest.controller.GuestWriteFormController;
 	</servlet-mapping>
  */
 public class DispatcherServlet extends HttpServlet {
+	/*
+	 * Controller객체를 저장할맵
+	 */
+	private HashMap<String, Controller> handlerMapping;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		handlerMapping=new HashMap<String, Controller>();
+		/*
+		<<web.xml에설정된 파일이름 파라메타값 가져오기>>
+		<servlet>
+			    <servlet-name>dispatcher</servlet-name>
+			    <servlet-class>com.itwill.summer.DispatcherServlet</servlet-class>
+		    <init-parm>
+				<param-name>configFile</param-name>
+				<param-value>/WEB-INF/guest_controller_mapping.properties</param-value>    
+		    </init-parm>
+		    <load-on-startup>0</load-on-startup>
+  		</servlet>
+		 */
+		String configFile=config.getInitParameter("configFile");
+		//String configFile="\\WEB-INF\\guest_controller_mapping.properties";
+		String siteRootRealPath=this.getServletContext().getRealPath("/");
+		String configFileRealPath=siteRootRealPath+configFile;
+		
+		try {
+			/*
+			설정파일(guest_controller_mapping.properties)을 읽어서 Properties객체생성
+			 */
+			FileInputStream fis=new FileInputStream(configFileRealPath);
+			Properties controllerMappingProperties=new Properties();
+			controllerMappingProperties.load(fis);
+			/*
+			 <<Properties객체>>
+			 --------------------------------------------
+			 |key(String)      |      value(String)     |
+			 --------------------------------------------
+			 |/guest_main.do   |com..GuestMainController|	
+			  -------------------------------------------
+			 |/guest_list.do   |com..GuestListController|		
+			  -------------------------------------------
+			 |/guest_view.do   |com..GuestViewController|		
+			 --------------------------------------------	
+			*/
+			Set commandKeySet=controllerMappingProperties.keySet();
+			Iterator commandKeyIterator = commandKeySet.iterator();
+			System.out.println("---------설정파일["+configFile+"]을이용해서 handlerMapping객체생성---------");
+			while(commandKeyIterator.hasNext()) {
+				String commandKey=(String)commandKeyIterator.next();
+				String controllerClassName=controllerMappingProperties.getProperty(commandKey);
+				/*
+				 Controller클래스이름을 사용해서 Controller객체생성
+				 	1. Controller클래스이름을 사용해서class를 메모리 로딩
+				 	2. 메모리에로딩된클래스의객체생성
+				 */
+				Class controllerClass=Class.forName(controllerClassName);
+				Controller controllerObject=(Controller)controllerClass.newInstance();
+				handlerMapping.put(commandKey, controllerObject);
+				System.out.println(commandKey+"="+controllerObject);
+			}
+			System.out.println("-----------------------------------------------------------------");
+			/*
+			 << HashMap<String, Controller> handlerMapping>>
+			 ------------------------------------------------
+			 |key(String)      |      value(Controller객체) |
+			 ------------------------------------------------
+			 |/guest_main.do   |com..GuestMainController객체|	
+			  -----------------------------------------------
+			 |/guest_list.do   |com..GuestListController객체|		
+			  -----------------------------------------------
+			 |/guest_view.do   |com..GuestViewController객체|		
+			 ------------------------------------------------
+			 */
+			
+			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		/********************************************
+	 		
+		/******************직접생성******************
+		handlerMapping.put("/guest_main.do",new GuestMainController());
+		handlerMapping.put("/guest_list.do",new GuestListController());
+		handlerMapping.put("/guest_view.do",new GuestViewController());
+		handlerMapping.put("/guest_write_form.do",new GuestWriteFormController());
+		handlerMapping.put("/guest_write_action.do",new GuestWriteActionController());
+		handlerMapping.put("/guest_modify_form.do",new GuestModifyFormController());
+		handlerMapping.put("/guest_modify_action.do",new GuestModifyActionController());
+		handlerMapping.put("/guest_remove_action.do",new GuestRemoveActionController());
+		handlerMapping.put("/guest_error.do",new GuestErrorController());
+		*******************************************/
+		
+	}
+	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.processRequest(request, response);
@@ -55,45 +161,15 @@ public class DispatcherServlet extends HttpServlet {
 		String contextPath=request.getContextPath();
 		String command=requestURI.substring(contextPath.length());
 		/*
-		 * 2-1.DispatcherServlet이 클라이언트 요청에따른 업무실행할 Controller객체생성
+		 * 2-1.DispatcherServlet이 클라이언트 요청에따른 업무실행할 Controller객체얻기
+		 *     << handlerMapping객체로부터 요청command를 처리할 Controller객체얻기 >>
 		 */
-		String forwardPath="";
-		Controller controller=null;
-		
-		if(command.equals("/guest_main.do")) {
-			/*******guest_main.do 를처리하는 Controller객체생성*************/
-			controller=new GuestMainController();
-		}else if(command.equals("/guest_list.do")) {
-			/*******guest_list.do 를처리하는 Controller객체생성*************/
-			controller=new GuestListController();
-		}else if(command.equals("/guest_view.do")) {
-			/*******guest_view.do 를처리하는 Controller객체생성*************/
-			controller=new GuestViewController();
-		}else if(command.equals("/guest_write_form.do")) {
-			/******guest_write_form.do 를처리하는 Controller객체생성********/
-			controller=new GuestWriteFormController();
-			/***************************************************/
-		}else if(command.equals("/guest_write_action.do")) {
-			/******guest_write_action.do 를처리하는 Controller객체생성*******/
-			controller=new GuestWriteActionController();
-		}else if(command.equals("/guest_modify_form.do")) {
-			/*****guest_modify_form.do 를처리하는 Controller객체생성*********/
-			controller=new GuestModifyFormController();
-		}else if(command.equals("/guest_modify_action.do")) {
-			/*****guest_modify_action.do 를처리하는 Controller객체생성*******/
-			controller=new GuestModifyActionController();
-		}else if(command.equals("/guest_remove_action.do")) {
-			/*****guest_remove_action.do 를처리하는 Controller객체생성*******/
-			controller=new GuestRemoveActionController();
-		}else {
-			/***** *.do 를처리하는 Controller객체생성************************/
-			controller=new GuestErrorController();
-		}
+		Controller controller=handlerMapping.get(command);
 		/*
 		  2-2.DispatcherServlet이 Controller객체의 handlerRequest메쏘드호출(비지니스실행)
 		  2-3.DispatcherServlet이 Controller객체의 handlerRequest메쏘드반환값인 forwardPath를 받는다.
 		 */
-		 forwardPath=controller.handleRequest(request, response);
+		 String forwardPath=controller.handleRequest(request, response);
 		/*
 		 * 3.DispatcherServlet이 forwardPath데이타를가지고 forward 혹은 redirect를한다
 		 */
