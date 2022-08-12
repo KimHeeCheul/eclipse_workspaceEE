@@ -14,7 +14,7 @@ import com.itwill.guest.GuestService;
 /**
  * Servlet implementation class GuestMainServlet
  */
-//@WebServlet("/guest_remove_action.do")
+@WebServlet("/guest_remove_action.do")
 public class GuestRemoveActionServlet extends HttpServlet {
 	private GuestService guestService;
 	public GuestRemoveActionServlet() {
@@ -48,7 +48,6 @@ public class GuestRemoveActionServlet extends HttpServlet {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			forwardPath="forward:/WEB-INF/views/guest_error.jsp";
 		}
 		/********************forward,redirect**************/
 		/*
@@ -64,7 +63,6 @@ public class GuestRemoveActionServlet extends HttpServlet {
 			RequestDispatcher rd=
 					request.getRequestDispatcher(path);
 			rd.forward(request, response);
-			forwardPath="redirect:/WEB-INF/views/guest_error.jsp";
 		}
 		/*************************************************/
 	}
