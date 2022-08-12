@@ -2,20 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-  /*************case2 redirection******************
-  String msg=request.getParameter("msg");
-  String userId=request.getParameter("userId");
-  String password=request.getParameter("password");
-  String name=request.getParameter("name");
-  String email=request.getParameter("email");
-  if(msg==null)msg="";
-  if(userId==null)userId="";
-  if(password==null)password="";
-  if(name==null)name="";
-  if(email==null)email="";
-  User fuser=new User(userId,password,name,email);
-  *************************************************/
-  /***************case 3 forward***************/
   String msg=(String)request.getAttribute("msg");
   if(msg==null)msg="";
   User fuser=(User)request.getAttribute("fuser");
@@ -63,7 +49,7 @@
 			f.password.select();
 			return;
 		}
-		document.f.action = "user_write_action.jsp";
+		document.f.action = "user_write_action.do";
 		document.f.method='POST';
 		document.f.submit();
 	}
