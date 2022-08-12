@@ -1,10 +1,10 @@
 
+<%@page import="com.itwill.user.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
-
-
+<%
+	User loginUser = (User)request.getAttribute("loginUser");
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,12 +16,12 @@
 <script type="text/javascript">
 	
 	function userModifyForm() {
-		location.href='user_modify_form.jsp'
+		location.href='user_modify_form.do'
 	}
 
 	function userRemove() {
 		if (window.confirm("정말 탈퇴하시겠습니까?")) {
-			window.document.f.action = "user_remove_action.jsp";
+			window.document.f.action = "user_remove_action.do";
 			document.f.method='POST';
 			document.f.submit();
 		}

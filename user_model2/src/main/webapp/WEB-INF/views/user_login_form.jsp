@@ -4,7 +4,6 @@
 <%
 	/************case1 script***************/
 	/********************************************/
-
 	/************case2 forward********************/
 	String msg1=(String)request.getAttribute("msg1");
 	if(msg1==null)msg1="";
@@ -24,7 +23,6 @@
 	function userCreateForm() {
 		location.href = "user_write_form.jsp";
 	}
-
 	function login() {
 		if (document.f.userId.value == "") {
 			alert("사용자 아이디를 입력하십시요.");
@@ -36,8 +34,7 @@
 			f.password.focus();
 			return;
 		}
-
-		document.f.action = "user_login_action.jsp";
+		document.f.action = "user_login_action.do";
 		document.f.method='POST';
 		document.f.submit();
 	}

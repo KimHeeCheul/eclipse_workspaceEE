@@ -50,11 +50,11 @@
 			return false;
 		}
 
-		document.f.action = "user_modify_action.jsp";
+		document.f.action = "user_modify_action.do";
 		document.f.submit();
 	}
 	function userMain() {
-		document.f.action = "user_main.jsp";
+		document.f.action = "user_main.do";
 		document.f.submit();
 	}
 </script>
