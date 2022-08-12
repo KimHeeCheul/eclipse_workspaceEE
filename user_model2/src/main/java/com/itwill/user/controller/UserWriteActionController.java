@@ -1,5 +1,6 @@
 package com.itwill.user.controller;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,12 +9,12 @@ import com.itwill.user.User;
 import com.itwill.user.UserService;
 
 public class UserWriteActionController implements Controller {
-	private UserService userServce;
+	private UserService userService;
 
 	public UserWriteActionController() throws Exception {
-		userServce = new UserService();
+		userService = new UserService();
 	}
-
+	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		/*
@@ -37,7 +38,7 @@ public class UserWriteActionController implements Controller {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			User newUser = new User(userId, password, name, email);
-			int result = userServce.create(newUser);
+			int result = userService.create(newUser);
 			if (result == -1) {
 				/*##############아이디중복##################*/
 				String msg = userId + "는 이미존재하는 아이디입니다.";

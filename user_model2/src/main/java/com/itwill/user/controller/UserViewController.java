@@ -26,7 +26,7 @@ public class UserViewController implements Controller {
 		/**************************/
 		/*
 		 * 1. UserService 객체생성
-		 * 2. 
+		 * 2. 세션의 sUserId를 사용해서 UserService.findUser()메쏘드호출
 		 * 3. 반환된 User객체출력
 		 */
 		try {
@@ -34,6 +34,7 @@ public class UserViewController implements Controller {
 			request.setAttribute("loginUser", loginUser);
 			forwardPath="forward:/WEB-INF/views/user_view.jsp";
 		} catch (Exception e) {
+			e.printStackTrace();
 			forwardPath = "forward:/WEB-INF/views/user_error.jsp";
 		}
 

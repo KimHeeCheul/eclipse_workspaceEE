@@ -2,7 +2,6 @@ package com.itwill.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 
 import com.itwill.summer.Controller;
 import com.itwill.user.UserService;
@@ -34,12 +33,12 @@ public class UserRemoveActionController implements Controller {
 		*/
 		try {
 			if (request.getMethod().equalsIgnoreCase("GET")) {
-				forwardPath = "redirect:user_main.jsp";
+				forwardPath = "redirect:user_main.do";//<<<<
 				return forwardPath;
 			}
 			userService.remove(sUserId);//<<<<
 			request.getSession().invalidate();//<<<<
-			forwardPath = "redirect:user_main.jsp";
+			forwardPath = "redirect:user_main.do";//<<<<<
 		} catch (Exception e) {
 			e.printStackTrace();
 			forwardPath = "forward:/WEB-INF/views/user_error.jsp";//<<<<다시 확인필요
