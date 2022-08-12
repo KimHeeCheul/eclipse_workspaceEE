@@ -2,7 +2,6 @@ package com.itwill.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.itwill.summer.Controller;
 import com.itwill.user.User;
@@ -33,7 +32,7 @@ public class UserViewController implements Controller {
 		try {
 			User loginUser = userService.findUser(sUserId);
 			request.setAttribute("loginUser", loginUser);
-			forwardPath="forward:/WEB-INF/view/user_view.jsp";
+			forwardPath="forward:/WEB-INF/views/user_view.jsp";
 		} catch (Exception e) {
 			forwardPath = "forward:/WEB-INF/views/user_error.jsp";
 		}
