@@ -26,6 +26,12 @@
 <h1>SCOPE객체</h1>
 <hr>
 <ol>
+	<li>Student pageSt=new Student();		==><%=pageSt%></li>
+	<li>Student requestSt=new Student();	==><%=requestSt%></li>
+	<li>Student sessionSt=new Student();	==><%=sessionSt%></li>
+	<li>Student applicationSt=new Student();==><%=applicationSt%></li>
+</ol> 
+<ol>
 	<li>page:<%=pageContext.getAttribute("pageSt")%></li>
 	<li>request:<%=request.getAttribute("requestSt")%></li>
 	<li>session:<%=session.getAttribute("sessionSt")%></li>
@@ -34,7 +40,9 @@
 <br/>
 include
 <hr/>
+<%-- --%> 
 <jsp:include page="8-2.default_scope_request.jsp"></jsp:include>
+
 <hr/>
 include
 <a href='8-3.default_scope_page_session_application1.jsp'>8-3.default_scope_page_session_application1.jsp</a><br/>

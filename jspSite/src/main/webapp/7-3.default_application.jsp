@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>기본객체 application(ServletContect)</h1>
+<h1>기본객체 application(ServletContext)</h1>
 <hr/>
 <ol>
 <li>서버정보<%=application.getServerInfo()%></li>
@@ -17,6 +17,7 @@
 <li>context real path : <%=application.getRealPath("")%></li>
 <li>log : <% application.log(">>>>>>>> 현재날짜:"+new Date().toString()); %></li>
 <li>context path(parameter):<%=application.getInitParameter("contextPath")%>
+<li>context path(parameter):<%=application.getInitParameter("아무거나")%>
 </ol>
 </body>
 </html>
