@@ -8,8 +8,9 @@ import com.itwill.summer.Controller;
 public class UserWriteFormController implements Controller{
 
 	@Override
-	public String handleRequest(HttpServletRequest arg0, HttpServletResponse arg1) {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		String forwardPath="";
+		forwardPath = "forward:/WEB-INF/views/user_write_form.jsp";
 		return forwardPath;
 	}
 

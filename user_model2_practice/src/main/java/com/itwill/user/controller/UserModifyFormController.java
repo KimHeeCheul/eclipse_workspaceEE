@@ -8,10 +8,13 @@ import com.itwill.user.User;
 import com.itwill.user.UserService;
 
 public class UserModifyFormController implements Controller{
+	private UserService userService;
 	
+	public UserModifyFormController() throws Exception {
+		userService = new UserService();
+	}
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		String forwardPath="";
 		
 		/*
 		1. UserService객체생성
@@ -19,7 +22,22 @@ public class UserModifyFormController implements Controller{
 		3. 반환된 User객체를 request객체에 setAttribute한다
 		4. forward:/WEB-INF/views/user_modify_form.jsp forwardPath를 반환
 		*/
-		
+		String forwardPath="";
+		/***********************로그인체크*************************/
+		String sUserId = (String) request.getSession().getAttribute("sUserId");
+		if(sUserId == null) {
+			forwardPath = "redirect:user_main.do";
+			return forwardPath;
+		}
+		/*******************************************************/
+		try {
+			User user = userService.findUser(sUserId);
+			request.setAttribute("user", user);
+			forwardPath = "forward:/WEB-INF/views/user_modify_form.jsp";
+		}catch (Exception e) {
+			e.printStackTrace();
+			forwardPath = "forward:/WEB-INF/views/user_error.jsp";
+		}
 		return forwardPath;
 	}
 
