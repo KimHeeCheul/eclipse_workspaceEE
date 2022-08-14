@@ -75,20 +75,20 @@
 										<td width=100 align=center bgcolor="E6ECDE" height="22">사용자
 											아이디</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											<%= user.getUserId() %>
+											<%=user.getUserId()%>
 										</td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">이름</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											<%= user.getName() %>
+											<%=user.getName()%>
 										</td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">이메일
 											주소</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											<%= user.getEmail() %>
+											<%=user.getEmail()%>
 										</td>
 									</tr>
 								</table>

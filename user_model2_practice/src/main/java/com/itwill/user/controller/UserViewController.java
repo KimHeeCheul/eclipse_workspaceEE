@@ -37,7 +37,7 @@ public class UserViewController implements Controller{
 		
 		}catch (Exception e) {
 			e.printStackTrace();
-			forwardPath = "forward:/WEB-INF/views/user_view_form.jsp";
+			forwardPath = "forward:/WEB-INF/views/user_error.jsp";
 		}
 		return forwardPath;
 	}

@@ -14,9 +14,9 @@ String msg2 = (String) request.getAttribute("msg2");
 if(msg2 == null){
 	msg2 = "";
 }
-String msg3 = (String) request.getAttribute("msg3");
-if(msg3 == null){
-	msg3 = "";
+String userId = (String) request.getAttribute("userId");
+if(userId == null){
+	userId = "";
 }
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -90,7 +90,7 @@ if(msg3 == null){
 											아이디</td>
 										<td width=490 align="left" bgcolor="ffffff"
 											style="padding-left: 10px"><input type="text"
-											style="width: 150" name="userId" value="">&nbsp;&nbsp;<font color="red"></font></td>
+											style="width: 150" name="userId" value="<%=userId%>">&nbsp;&nbsp;<font color="red"><%=msg1 %></font></td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">비밀번호</td>
