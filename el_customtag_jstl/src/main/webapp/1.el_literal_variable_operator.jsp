@@ -17,6 +17,10 @@ pageContext.setAttribute("age", 34);
 pageContext.setAttribute("weight", 75.2641);
 pageContext.setAttribute("height", 173);
 
+
+//pageContext.setAttribute("msg", "아이디가 사용중입니다.");
+
+
 Guest guest = null;
 ArrayList<Guest> guestList = new ArrayList<Guest>();
 HashMap<String, Guest> guestMap = new HashMap<String, Guest>();
@@ -39,15 +43,75 @@ pageContext.setAttribute("emptyStr", emptyStr);
 	<hr>
 	<ul>
 		<li>----EL 리터럴(상수)----</li>
-		<li>정수형리터럴: </li>
-		<li>실수형리터럴:</li>
-		<li>논리형리터럴: </li>
-		<li>문자형리터럴:</li>
-		<li>문자형리터럴:</li>
+		<li>정수형리터럴: ${123124412}</li>
+		<li>실수형리터럴: ${3.141592}</li>
+		<li>논리형리터럴: ${true}</li>
+		<li>문자형리터럴: ${"문자1"}</li>
+		<li>문자형리터럴: ${'문자2'}</li>
+		
 		<li>---------EL 변수[SCOPE객체의 속성이름]--------</li>
+		<li>${int1}</li>
+		<li>${int2}</li>
+		<li>${double1}</li>
+		<li>${double2}</li>
+		<li>${string1}</li>
+		<li>${string2}</li>
+		<li>${bool1}</li>
+		<li>${bool2}</li>
+		<li>${married}</li>
+		<li>${age}</li>
+		<li>${weight}</li>
+		<li>${height}</li>
+		<li>${msg}</li>
 		
 		<li>---------EL 연산자--------</li>
+		<li>${12+89}</li>
+		<li>${12-13}</li>
+		<li>${12*89}</li>
+		<li>${12/89}</li>
+		<li>${int1+int2}</li>
+		<li>${int1-int2}</li>
+		<li>${int1*int2}</li>
+		<li>${int1/int2}</li>
+		<li>${double1/double2+0.25142}</li>
+		<li>{string1+string2}(X) 문자열 concat 연산자 사용 불가능</li>
+		<li>${string1}${string2}</li>
+		<li>${"123"+"456"+"7"}←공백을 넣으면 에러가 나온다</li>
+		<li>age>=30-->${age>=30}</li>
+		<li>age<=30-->${age<=30}</li>
+		<li>age==30-->${age==30}</li>
+		<li>age!=30-->${age!=30}</li>
 		
+		<li>age ne 30-->${age ne 30}</li>
+		<li>age gt 30-->${age gt 30}</li>
+		<li>age ge 30-->${age ge 30}</li>
+		<li>age lt 30-->${age lt 30}</li>
+		<li>age le 30-->${age le 30}</li>
+		<li>age eq 30-->${age eq 30}</li>
+		<li>30대 인가요? ${age>=30 && age<40}</li>
+		<li>30대 아닌가요? ${!(age>=30 && age<40)}</li>
+		<li>30대이고 키가 180이상 인가요? ${(age>=30 && age<40) && (height>=180)}</li>
+		<li>30대이고 키가 180이상 인가요? ${(age ge 30 and age lt 40) and (height ge 180)}</li>
+		
+		<li>-----------null or size체크-----------</li>
+		<li>${guest==null}</li><!-- request.getAttribute(guest) guest를 보면 이것이 바로 나와야한다 -->
+		<li>${guestList.size()==0}</li>
+		<li>${guestMap.size()==0}</li>
+		<li>${emptyStr.equals("")}</li>
+		
+		<li>-----------null or size체크(empty 연산자)-----------</li>
+		<li>${empty guest}</li><!-- 비어있는지 혹은 스트링 사이즈가 0인지 자동으로 해주는것 -->
+		<li>${empty guestList}</li>
+		<li>${empty guestMap}</li>
+		<li>${empty emptyStr}</li>
+		<li>${empty ""}</li>
+		<li>${empty null}</li>
+
+
+
+
+
+
 
 
 
