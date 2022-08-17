@@ -2,11 +2,6 @@
 <%@page import="com.itwill.user.UserService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%
-	User loginUser=
-		(User)request.getAttribute("loginUser");
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +14,6 @@
 	function userModifyForm() {
 		location.href='user_modify_form.do'
 	}
-
 	function userRemove() {
 		if (window.confirm("정말 탈퇴하시겠습니까?")) {
 			window.document.f.action = "user_remove_action.do";
@@ -72,20 +66,20 @@
 										<td width=100 align=center bgcolor="E6ECDE" height="22">사용자
 											아이디</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											<%=loginUser.getUserId() %>
+											${loginUser.userId}
 										</td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">이름</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											<%=loginUser.getName() %>
+											${loginUser.name}
 										</td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">이메일
 											주소</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											<%=loginUser.getEmail()%>
+											${loginUser.email}
 										</td>
 									</tr>
 								</table>
