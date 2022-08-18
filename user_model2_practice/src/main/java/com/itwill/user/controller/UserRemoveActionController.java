@@ -23,13 +23,14 @@ public class UserRemoveActionController implements Controller {
 		  실패: forward:/WEB-INF/views/user_error.jsp  forwardPath반환
 		*/
 		String forwardPath = "";
-		/***********************로그인체크*************************/
+		String sUserId = (String) request.getSession().getAttribute("sUserId");
+		/***********************로그인체크*************************
 		String sUserId = (String) request.getSession().getAttribute("sUserId");
 		if(sUserId == null) {
 			forwardPath = "redirect:user_main.do";
 			return forwardPath;
 		}
-		/*******************************************************/
+		*******************************************************/
 		if(request.getMethod().equalsIgnoreCase("GET")) {
 			forwardPath = "redirect:user_main.do";
 			return forwardPath;

@@ -23,13 +23,14 @@ public class UserModifyFormController implements Controller{
 		4. forward:/WEB-INF/views/user_modify_form.jsp forwardPath를 반환
 		*/
 		String forwardPath="";
-		/***********************로그인체크*************************/
+		String sUserId=(String)request.getSession().getAttribute("sUserId");
+		/***********************로그인체크*************************
 		String sUserId = (String) request.getSession().getAttribute("sUserId");
 		if(sUserId == null) {
 			forwardPath = "redirect:user_main.do";
 			return forwardPath;
 		}
-		/*******************************************************/
+		*******************************************************/
 		try {
 			User user = userService.findUser(sUserId);
 			request.setAttribute("user", user);
