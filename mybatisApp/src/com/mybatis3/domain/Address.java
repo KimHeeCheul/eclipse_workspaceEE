@@ -1,5 +1,7 @@
 package com.mybatis3.domain;
 
+import java.util.List;
+
 public class Address 
 {
 	/*
@@ -18,7 +20,7 @@ public class Address
 	private String state;
 	private String zip;
 	private String country;
-	
+	private List<Student> studentList;
 	
 	
 }

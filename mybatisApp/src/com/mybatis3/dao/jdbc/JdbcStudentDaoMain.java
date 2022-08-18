@@ -7,14 +7,14 @@ import com.mybatis3.domain.Student;
 public class JdbcStudentDaoMain {
 
 	public static void main(String[] args) {
-		/*
+		
 		JdbcStudentDao jdbcStudentDao = new JdbcStudentDao();
 		System.out.println("----findStudentById---");
 		Student findStudent = jdbcStudentDao.findStudentById(1);
 		System.out.println(">>> "+findStudent);
 		System.out.println("----createStudent---");
 		long ts = System.currentTimeMillis();// For creating unique student
-		Student newStudent = new Student(0, "student_" + ts, "student_" + ts + "@gmail.com", new Date());
+		Student newStudent = new Student(0, "student_" + ts, "student_" + ts + "@gmail.com", new Date(),null);
 		int rowCount=jdbcStudentDao.createStudent(newStudent);
 		System.out.println(">>>"+newStudent);
 		
@@ -26,7 +26,7 @@ public class JdbcStudentDaoMain {
 		jdbcStudentDao.updateStudent(updateStudent);
 		System.out.println(">>>"+updateStudent);
 		System.out.println("----findStudentList---");
-		*/
+		System.out.println(jdbcStudentDao.findStudentList());
 	}
 
 }

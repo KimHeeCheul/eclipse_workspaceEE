@@ -10,7 +10,7 @@ import java.util.List;
 import com.mybatis3.domain.Student;
 
 public class JdbcStudentDao {
-	/*
+	
 	private DataSource dataSource;
 
 	public JdbcStudentDao() {
@@ -23,7 +23,7 @@ public class JdbcStudentDao {
 			conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(StudentSQL.SELECT_STUDENT_LIST);
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Student student = new Student();
 				student.setStudId(rs.getInt("stud_id"));
 				student.setName(rs.getString("name"));
@@ -122,5 +122,5 @@ public class JdbcStudentDao {
 		}
 		return rowCount;
 	}
-	*/
+	
 }
